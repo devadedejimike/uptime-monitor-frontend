@@ -41,6 +41,9 @@ export default function DashboardLayout({children} : {children: ReactNode}) {
                     </div>
                 </header>
                 {/* Main Content */}
+                <main className="flex-1 p-10 bg-brand-background/20">
+                    {children}
+                </main>
             </div>
         </div>
     )

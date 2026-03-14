@@ -1,4 +1,4 @@
-import { Activity, Globe, LayoutDashboard, Settings } from "lucide-react";
+import { Activity, Globe, LayoutDashboard, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -29,8 +29,19 @@ export default function DashboardLayout({children} : {children: ReactNode}) {
                 </nav>
             </aside>
             {/*Right Side */}
-            {/* Top Nav */}
-            {/* Main Content */}
+            <div className="flex-1 flex flex-col">
+                {/* Top Nav */}
+                <header className="flex items-center justify-between px-10 py-5 bg-white border-b border-gray-200">
+                    <h3 className="font-semibold ">Dashboard</h3>
+                    <div className="flex items-center gap-4 text-brand-text-muted">
+                        <p>user@gmail.com</p>
+                        <Link href={''} className="flex items-center gap-1 hover:bg-brand-background hover:text-brand-primary p-2 rounded">
+                            <LogOut size={18}/>
+                        </Link>
+                    </div>
+                </header>
+                {/* Main Content */}
+            </div>
         </div>
     )
 }

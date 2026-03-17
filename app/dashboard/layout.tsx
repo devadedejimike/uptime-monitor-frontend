@@ -1,9 +1,23 @@
+'use client'
+
 import { Activity, Globe, LayoutDashboard, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { UserProvider, useUser } from "../context/userContext";
+
 
 
 export default function DashboardLayout({children} : {children: ReactNode}) {
+      
+    return(
+        <UserProvider>
+            <DashboardInner>{children}</DashboardInner>
+        </UserProvider>
+    )
+}
+
+const DashboardInner = ({children}: {children: ReactNode}) => {
+    const {user} = useUser()
     return(
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
@@ -34,7 +48,7 @@ export default function DashboardLayout({children} : {children: ReactNode}) {
                 <header className="flex items-center justify-between px-10 py-5 bg-white border-b border-gray-200">
                     <h3 className="font-semibold ">Dashboard</h3>
                     <div className="flex items-center gap-4 text-brand-text-muted">
-                        <p>user@gmail.com</p>
+                        <p>{user?.email || "Unknown"}</p>
                         <Link href={''} className="flex items-center gap-1 hover:bg-brand-background hover:text-brand-primary p-2 rounded">
                             <LogOut size={18}/>
                         </Link>

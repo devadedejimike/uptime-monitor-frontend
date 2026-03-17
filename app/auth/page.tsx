@@ -1,12 +1,48 @@
-'use client'
+'use client';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRightIcon, AtSignIcon, LockIcon } from "lucide-react";
+import { api } from "../lib/api";
 
 export default function LoginForm() {
-    const [isLogin, setIsLogin] = useState(false) 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [isLogin, setIsLogin] = useState(false);
+
+    const router = useRouter();
+
+    const handleLogin = async(e: React.FormEvent) => {
+        e.preventDefault();
+
+        try{
+            const data = await api.post("/auth/login", {email, password});
+            localStorage.setItem("token", data.token)
+            router.push("/dashboard")
+        }catch(error){
+            console.error("Login error", error)
+            alert("invalid credentials")
+        }
+    }
+
+    const handleSignUp = async(e: React.FormEvent) => {
+        e.preventDefault();
+
+        if(password !== confirmPassword){
+            alert("Password don't match");
+            return;
+        }
+        try {
+            const data = await api.post("/auth/register", {email, password});
+            localStorage.setItem("token", data.token);
+            router.push("/dashboard")
+        } catch (error) {
+            alert('Error signing up')
+        }
+    }
   return (
     <div className="min-h-screen flex justify-center items-center">
-        <form className=" space-y-3">
+        <form onSubmit={isLogin ? handleLogin : handleSignUp} className=" space-y-3">
             <div className="rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                 <h1 className='mb-3 text-2xl'>
                     {isLogin ? 'Please log in to continue.' : 'Sign up to use our service'}
@@ -25,6 +61,8 @@ export default function LoginForm() {
                         id="email"
                         type="email"
                         name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email address"
                         required
                     />
@@ -44,6 +82,8 @@ export default function LoginForm() {
                         id="password"
                         type="password"
                         name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter password"
                         required
                         minLength={6}
@@ -65,6 +105,8 @@ export default function LoginForm() {
                             id="password"
                             type="password"
                             name="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="Re-enter password"
                             required
                             minLength={6}
@@ -75,10 +117,11 @@ export default function LoginForm() {
                 )}
                 </div>
                 <div className="flex justify-center items-center">
-                    <button className="flex items-center gap-2 bg-brand-primary text-white px-5 py-2 mt-4 rounded">
+                    <button type="submit" className="flex items-center gap-2 bg-brand-primary text-white px-5 py-2 mt-4 rounded">
                         {isLogin ? 'Log in' : 'Sign up'} <ArrowRightIcon className="ml-auto h-5 w-5" />
                     </button>
                 </div>
+                {/* Alternative Login */}
                 <div className="flex h-8 items-end space-x-1">
                 {/* Add form errors here */}
                 </div>

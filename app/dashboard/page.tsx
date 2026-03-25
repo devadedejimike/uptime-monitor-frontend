@@ -28,6 +28,17 @@ export default function DashbordPage() {
     setWebsites((prev) => [...prev, newWebsite]);
   };
 
+  const deleteWebsite = async (id: number) => {
+    if(!confirm("Are you sure you want to delete this website?"))return;
+    try {
+      await api.delete(`/website/${id}`);
+      setWebsites((prev) => prev.filter(site => site.id !== id))
+      
+    } catch (error) {
+      alert("Delete Failed")
+    }
+  }
+
   const fetchWebsites = async () => {
     try {
       setLoading(true);
@@ -73,7 +84,10 @@ export default function DashbordPage() {
     <div className="w-full px-4 py-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Websites</h2>
+        <div>
+          <h2 className="text-2xl font-bold">Websites</h2>
+          <p className="text-sm text-brand-text-muted">{websites.length > 1 ? `${websites.length} websites is being monitored` : `${websites.length} website is being monitored`}</p>
+        </div>
 
         <div className="flex items-center gap-1 sm:gap-2 md:gap-5">
           <button
@@ -128,7 +142,7 @@ export default function DashbordPage() {
       {!loading && hasWebsites && (
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {websites.map((site) => (
-            <WebsiteCard key={site.id} site={site} />
+            <WebsiteCard key={site.id} site={site} onDelete={deleteWebsite}/>
           ))}
         </div>
       )}

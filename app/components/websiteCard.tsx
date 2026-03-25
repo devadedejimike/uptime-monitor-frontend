@@ -14,11 +14,17 @@ type Website={
     uptime?: number;
     lastCheck?: string;
 }
-export default function WebsiteCard({site}: {site: Website}){
+
+type WebsiteCardProps={
+    site: Website,
+    onDelete: (id: number) => void
+}
+
+export default function WebsiteCard({site, onDelete}: WebsiteCardProps){
 
     return(
         <div className="bg-white p-4 md:px-6 rounded shadow-sm hover:shadow-md transition">
-            <div className="transition">
+            <div className=" transition">
                 <div className="flex justify-between items-center">
                     <div className="">
                         <h3 className="font-semibold text-lg">{site.name}</h3>
@@ -37,6 +43,7 @@ export default function WebsiteCard({site}: {site: Website}){
                         <button
                             title="Delete Website"
                             className="p-2 hover:bg-red-100 rounded-md transition"
+                            onClick={() => onDelete(site.id)}
                         >
                             <Trash2 size={18} className="text-red-600"/>
                         </button>

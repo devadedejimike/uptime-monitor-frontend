@@ -21,6 +21,7 @@ export default function DashbordPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [websites, setWebsites] = useState<Website[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false)
 
   const hasWebsites = websites.length > 0;
 
@@ -39,9 +40,13 @@ export default function DashbordPage() {
     }
   }
 
-  const fetchWebsites = async () => {
+  const fetchWebsites = async (isRefresh = true) => {
     try {
-      setLoading(true);
+      if(isRefresh){
+        setRefresh(true);
+      }else{
+        setLoading(true);
+      }
 
       const data = await api.get("/website/");
 
@@ -70,12 +75,19 @@ export default function DashbordPage() {
       } catch (error) {
         console.log("Error fetching websites");
       } finally {
+        setRefresh(false)
         setLoading(false);
       }
     };
   
     useEffect(() => {
       fetchWebsites()
+
+      // To auto refresh every 30secs
+      const interval = setInterval(() => {
+        fetchWebsites(true)
+      }, 30000)
+      return () => clearInterval(interval);
     }, [])
 
     
@@ -91,11 +103,11 @@ export default function DashbordPage() {
 
         <div className="flex items-center gap-1 sm:gap-2 md:gap-5">
           <button
-            onClick={fetchWebsites}
-            disabled={loading}
+            onClick={() => fetchWebsites(true)}
+            disabled={refresh}
             className="hover:bg-brand-text-muted/30 p-2 rounded-lg transition disabled:opacity-50"
           >
-            <RefreshCcw size={20} className={loading ? "animate-spin" : ""}/>
+            <RefreshCcw size={20} className={refresh ? "animate-spin" : ""}/>
           </button>
           <button
             onClick={() => setIsOpen(true)}

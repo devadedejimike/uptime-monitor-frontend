@@ -1,12 +1,21 @@
 'use client'
-
-import { Activity } from "lucide-react"
+import React from "react"
+import { Activity, ArrowRight, ArrowDown } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Baloon, Card, cards } from "./lib/types"
+import { Baloon,  cards } from "./lib/types"
+import Link from "next/link"
 
 export default function LandingPage () {
     const options = ["website", "API", "dashboards"]
     const [value, setValue] = useState(0);
+
+    const steps = [
+        "Sign up/Login",
+        "Add your Url",
+        "We start monitoring",
+        "We check every 5 minutes",
+        "You get notified if something breaks"
+    ];
     
 
     useEffect(() => {
@@ -16,25 +25,27 @@ export default function LandingPage () {
         return () => clearInterval(interval);
     },[])
     return(
-        <div className="min-h-screen font-sans">
+        <div className="min-h-screen font-serif">
             {/* Navigation bar */}
             <nav className="sticky top-0 z-50">
                 <div className="flex justify-between items-center backdrop-blur-md px-10 py-3">
-                    <span className="flex items-center gap-3">
-                        <Activity />
-                        <p className="text-md font-bold">Uptime Watcher</p>
-                    </span>
+                    <a href="#home" className="flex items-center gap-1 text-emerald-600">
+                        <Activity className=""/>
+                        <p className=" text-md font-bold">Uptime Watcher</p>
+                    </a>
                     <ul className="flex items-center gap-3">
-                        <li>What We Do</li>
-                        <li>Our Approach</li>
-                        <li>About Us</li>
+                        <li><a href="#what-we-do">What We Do</a></li>
+                        <li><a href="#our-approach">Our Approach</a></li>
+                        <li><a href="#about-us">About Us</a></li>
                     </ul>
-                    <button className="">Watch</button>
+                    <Link href={'/auth'}>
+                        <button className="text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200">Sign Up</button>
+                    </Link>
                 </div>
             </nav>
 
             {/* Hero Section */}
-            <main className="w-full flex flex-col items-center mx-auto pt-20 pb-20">
+            <main id="home" className="w-full flex flex-col items-center mx-auto pt-20 pb-20">
                 <div className="max-w-4xl text-center space-y-3">
                     <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl">Know when your{" "}<br/><span className="">{options[value]}</span>{" "}<br/>goes down before your users do</h3>
                     <p className="text-sm text-center">Uptime Watcher checks your websites every 5 minutes and alerts you instantly when something breaks. <br/>Simple setup, powerful monitoring.</p>
@@ -44,11 +55,11 @@ export default function LandingPage () {
             <section className="py-20 px-6">
                 <div className="max-w-6xl mx-auto text-center mb-10">
                     <h3 className="text-3xl md:text-4xl">You Rest, We Watch.</h3>
-                    <p className="text-md mt-2">Enjoy Peace of Mind</p>
+                    <p className="text-sm mt-2">Enjoy Peace of Mind</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10">
                     {/* Left side */}
-                    <ul className="space-y-5 text-right">
+                    <ul className="space-y-5 text-right text-sm font-semibold">
                         <li>Catch issues early</li>
                         <li>Deploy with confidence</li>
                         <li>Get instant alerts</li>
@@ -65,7 +76,7 @@ export default function LandingPage () {
                         </div>
                     </div>
                     {/* Right side */}
-                    <ul className="space-y-5 text-left">
+                    <ul className="space-y-5 text-left text-sm font-semibold">
                         <li>Skip manual checks</li>
                         <li>See real performance</li>
                         <li>Cut the noise</li>
@@ -73,7 +84,7 @@ export default function LandingPage () {
                 </div>
             </section>
             <section className="max-w-4xl mx-auto mb-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center border-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center shadow-emerald-500/60 shadow-lg">
                     {/* Left Side */}
                     <div className="px-3 py-5 border-b-2 md:border-b-0 md:border-r-2 border-slate-800/20 space-y-3">
                         <h3 className="font-semibold text-2xl b">Why is there a need <br/>for Uptime Watcher?</h3>
@@ -83,7 +94,9 @@ export default function LandingPage () {
                             <p>Manual checks aren&apos;t reliable</p>
                             <p>The sooner you know, the faster you fix it</p>
                         </div>
-                        <button className="border rounded-full px-4 py-2">See problems before users do</button>
+                        <Link href={'/auth'}>
+                            <button className="mt-5 text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200">See problems before users do</button>
+                        </Link>
                     </div>
                     {/* Right side */}
                     {/* An Heartbeat pulse signal */}
@@ -127,7 +140,7 @@ export default function LandingPage () {
                 </div>
             </section>
             {/* What we do section */}
-            <section className="py-20 px-20 space-y-10">
+            <section id="what-we-do" className="py-20 px-20 space-y-10">
                 <div className="max-w-3xl mx-auto text-center space-y-3">
                     <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl">Solve for burdens of not knowing when things break</h3>
                     <p className="text-sm">Get alerted instantly, track performance, and stay ahead of issues without comlex setup</p>
@@ -137,7 +150,7 @@ export default function LandingPage () {
                     {/* Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                         {cards.map((card) => (
-                            <div key={card.id} className="border rounded-xl px-5 py-10 space-y-3">
+                            <div key={card.id} className="shadow-emerald-500/60 shadow-lg rounded-xl px-5 py-10 space-y-3">
                                 <h3 className="text-lg font-semibold">{card.title}</h3>
                                 <p className="text-sm">{card.description}</p>
                             </div>
@@ -151,17 +164,159 @@ export default function LandingPage () {
                         <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl">Your go-to Patner who{" "}<br/><span className="font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-5xl">Watches and Delivers</span></h3> 
                         <p className="text-sm">Everything is monitored, we watch and inform you immediately it goes down</p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mt-5">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mt-20">
+
                             {Baloon.map((baloon) => (
-                            <div key={baloon.id} className="w-32 h-32 border flex items-center justify-center p-4 rounded-full">
-                                <p>{baloon.content}</p>
-                            </div>
+                                <div key={baloon.id} className="relative w-32 h-32 flex items-center justify-center">
+
+                                {/* Spinning border */}
+                                <div className="absolute inset-0 rounded-full border-2 border-dashed border-emerald-500 shadow-lg animate-[spin_8s_linear_infinite]" />
+
+                                {/* Static content */}
+                                <div className="w-full h-full flex items-center justify-center p-4">
+                                    <p className="text-sm text-center">{baloon.content}</p>
+                                </div>
+
+                                </div>
                             ))}
                         </div>
                     </div>
                 </div>  
             </section>
             {/* Our Approach section */}
+            <section id="our-approach" className="space-y-5 py-5 px-5 border-t-4 rounded-t-[500px] border-emerald-500">
+                <div className="max-w-3xl mx-auto text-center">
+                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">Our Approach</button>
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl mb-2">We are always active<br/> for your sake</h3>
+                    <p className="text-sm">Our service centers on you, we&apos;re an everyday partner who watches with geniune care</p>
+
+                    <div className="relative w-full h-[400px] flex items-center justify-center">
+
+                    {/* Center plus */}
+                    <div className="relative flex items-center justify-center">
+                        
+                        {/* Vertical line */}
+                        <div className="absolute w-[2px] h-20 border-2 border-emerald-500/50 animate-pulse"></div>
+
+                        {/* Horizontal line */}
+                        <div className="absolute h-[2px] w-20 border-2 border-emerald-500/50 animate-pulse"></div>
+
+                        {/* Center circle */}
+                        <div className="w-6 h-6 rounded-full border bg-transparent z-10 border-2 border-dashed border-emerald-500 shadow-lg animate-[spin_8s_linear_infinite]"></div>
+                    </div>
+
+                    {/* Top label */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80px] text-sm text-center">
+                        <p className="font-semibold">Monitor what matters</p>
+                    </div>
+
+                    {/* Right label */}
+                    <div className="absolute top-1/2 left-1/2 translate-x-[80px] -translate-y-1/2 text-sm text-center">
+                        <p className="font-semibold">Respond fast</p>
+                    </div>
+
+                    {/* Bottom label */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-[60px] text-sm text-center">
+                        <p className="font-semibold">Stay clear</p>
+                    </div>
+
+                    {/* Left label */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-[160px] -translate-y-1/2 text-sm text-center">
+                        <p className="font-semibold">Keep it simple</p>
+                    </div>
+
+                    </div>
+                    <div>
+                        <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">How it works</button>
+                        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 p-8 rounded-2xl shadow-emerald-500/60 shadow-lg">
+                            {steps.map((step, index) => (
+                                <React.Fragment key={index}>
+                                {/* Step Button */}
+                                <div className="relative">
+                                    <div className="absolute -inset-0.5 rounded-lg blur opacity-20 transition duration-300"></div>
+                                    <button className="relative shadow-lg border px-4 py-2 text-sm font-semibold rounded-lg">
+                                    {step}
+                                    </button>
+                                </div>
+
+                                {/* Arrow: Show ArrowRight on desktop, ArrowDown on mobile */}
+                                {index !== steps.length - 1 && (
+                                    <div className="flex items-center justify-center text-emerald-600">
+                                    {/* Desktop Arrow */}
+                                    <ArrowRight className="hidden md:block w-5 h-5 animate-pulse" />
+                                    {/* Mobile Arrow */}
+                                    <ArrowDown className="md:hidden w-5 h-5 animate-pulse" />
+                                    </div>
+                                )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div> 
+                </div>
+            </section>
+            {/* About us */}
+            <section id="about-us" className="space-y-5 py-5 px-5">
+                <div className="max-w-3xl mx-auto text-center">
+                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">About Us</button>
+                    <div>
+                        <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl mb-2">ONE VISION</h3>
+                        <p className="text-sm">Helping users monitor with ease</p>
+                    </div>
+                    <div>
+                        <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">our core values</button>
+                        {/* core values */}
+                        
+                        <div></div>
+                        {/* Card */}
+                        <div className="shadow-emerald-500/60 shadow-lg flex flex-col md:flex-row justify-center rounded-lg items-stretch p-6 md:p-10">
+                            <div className="p-5 space-y-6">
+                                <h3 className="text-4xl font-medium tracking-tight leading-tight mb-4">Experience Monitoring <br/>in a new way</h3>
+                                <Link href={'/auth'}>
+                                    <button className="text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200">Get Started</button>
+                                </Link>
+                                
+                            </div>
+                            <div className=" shadow-lg px-2 py-4 space-y-5 rounded-lg">
+                                <h3 className="text-2xl text-start font-semibold">Sounds like you?</h3>
+                                <div className="text-sm space-y-3">
+                                    <p className="text-start">Your site goes down... and you are the last to know</p>
+                                    <p className="text-start">Tired of checking dashboards manually after deployment</p>
+                                    <p className="text-start">Getting too many alerts that don't matter</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {/* footer */}
+            <footer className="space-y-10 mt-20 pt-20 px-5 pb-3 border-t-4 rounded-t-[500px] border-emerald-500">
+                <nav className="flex items-center justify-center  space-x-10">
+                    <div className="flex items-center justify-center gap-1">
+                        <Activity />
+                        <h3 className="font-semibold">Uptime Watcher</h3>
+                    </div>
+                    <Link href={'/auth'}>
+                        <button className="text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200">Sign Up</button>
+                    </Link>
+                </nav>
+                <section className="max-w-4xl mx-auto text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-1">Never miss any downtime</h3>
+                    <div>
+                        <button className="border p-2 rounded-lg"></button>
+                        <button className="border p-2 rounded-lg"></button>
+                        <button className="border p-2 rounded-lg"></button>
+                        <button className="border p-2 rounded-lg"></button>
+                    </div>
+                </section>
+                <section className="max-w-6xl mx-auto flex items-center justify-between">
+                    <ul className="flex items-center justify-center gap-3 text-sm">
+                        <li>Security</li>
+                        <li>Privacy</li>
+                        <li>Terms</li>
+                    </ul>
+                    <p className="text-sm">&copy; Uptime Watcher {new Date().getFullYear()}</p>
+                </section>
+            </footer>
         </div>
     )
 }

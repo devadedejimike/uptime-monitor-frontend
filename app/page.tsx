@@ -2,7 +2,7 @@
 import React from "react"
 import { Activity, ArrowRight, ArrowDown } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Baloon,  cards } from "./lib/types"
+import { Baloon,  cards, label } from "./lib/types"
 import Link from "next/link"
 
 export default function LandingPage () {
@@ -25,7 +25,7 @@ export default function LandingPage () {
         return () => clearInterval(interval);
     },[])
     return(
-        <div className="min-h-screen font-serif">
+        <div className="min-h-screen">
             {/* Navigation bar */}
             <nav className="sticky top-0 z-50">
                 <div className="flex justify-between items-center backdrop-blur-md px-10 py-3">
@@ -146,7 +146,7 @@ export default function LandingPage () {
                     <p className="text-sm">Get alerted instantly, track performance, and stay ahead of issues without comlex setup</p>
                 </div>
                 <div className="max-w-4xl mx-auto text-center">
-                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20">where we fit</button>
+                    <p className="text-xs font-semibold border px-2 py-1 rounded-full mb-20">where we fit</p>
                     {/* Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                         {cards.map((card) => (
@@ -158,7 +158,7 @@ export default function LandingPage () {
                     </div>
                 </div>
                 <div className="max-w-3xl mx-auto text-center space-y-3">
-                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">what you get</button>
+                    <p className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">what you get</p>
 
                     <div>
                         <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl">Your go-to Patner who{" "}<br/><span className="font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-5xl">Watches and Delivers</span></h3> 
@@ -186,7 +186,7 @@ export default function LandingPage () {
             {/* Our Approach section */}
             <section id="our-approach" className="space-y-5 py-5 px-5 border-t-4 rounded-t-[500px] border-emerald-500">
                 <div className="max-w-3xl mx-auto text-center">
-                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">Our Approach</button>
+                    <p className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">Our Approach</p>
                     <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl mb-2">We are always active<br/> for your sake</h3>
                     <p className="text-sm">Our service centers on you, we&apos;re an everyday partner who watches with geniune care</p>
 
@@ -257,16 +257,31 @@ export default function LandingPage () {
             {/* About us */}
             <section id="about-us" className="space-y-5 py-5 px-5">
                 <div className="max-w-3xl mx-auto text-center">
-                    <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">About Us</button>
+                    <p className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">About Us</p>
                     <div>
                         <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl mb-2">ONE VISION</h3>
                         <p className="text-sm">Helping users monitor with ease</p>
                     </div>
                     <div>
-                        <button className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">our core values</button>
+                        <p className="text-xs font-semibold border px-2 py-1 rounded-full mb-20 mt-20">our core values</p>
                         {/* core values */}
-                        
-                        <div></div>
+                        <div className="w-full py-16 px-6 md:px-16">
+                            <div className="flex justify-center">
+                                <div className="flex flex-col items-center gap-6 max-w-md w-full">
+                                    {label.map((item, i) => (
+                                        <div key={i} className="flex flex-col md:flex-row items-center justify-between gap-6 p-4 rounded-lg w-full rounded-lg shadow-lg">
+                                            <div className="w-10 flex justify-center">
+                                                <h1 className="font-semibold text-emerald-600 text-2xl">{item.letter}</h1>
+                                            </div>
+                                            <div className="flex flex-col md:items-end">
+                                                <h3 className="font-semibold">{item.title}</h3>
+                                                <p className="text-sm">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                         {/* Card */}
                         <div className="shadow-emerald-500/60 shadow-lg flex flex-col md:flex-row justify-center rounded-lg items-stretch p-6 md:p-10">
                             <div className="p-5 space-y-6">
@@ -296,19 +311,44 @@ export default function LandingPage () {
                         <h3 className="font-semibold">Uptime Watcher</h3>
                     </div>
                     <Link href={'/auth'}>
-                        <button className="text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200">Sign Up</button>
+                        <button className="text-sm font-semibold border px-6 py-3 rounded-xl shadow-md bg-emerald-500 text-white outline-none hover:bg-emerald-500/60 hover:shadow-lg active:scale-95 transition-all duration-200 animate-[glow_3s_ease-in-out_infinite]">Sign Up</button>
                     </Link>
                 </nav>
                 <section className="max-w-4xl mx-auto text-center">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-1">Never miss any downtime</h3>
-                    <div>
-                        <button className="border p-2 rounded-lg"></button>
-                        <button className="border p-2 rounded-lg"></button>
-                        <button className="border p-2 rounded-lg"></button>
-                        <button className="border p-2 rounded-lg"></button>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl mb-1">Never miss any downtime</h3>
+
+                {/* Wrapper to hold the beam and pendulums together */}
+                <div className="flex flex-col items-center mt-10">
+                    
+                    {/* The Support Line */}
+                    <div className="w-32 h-[2px] bg-emerald-500 rounded-full relative"/>
+
+                    {/* Pendulum animation Container */}
+                    <div className="flex justify-center items-start">
+                    {[0, 1, 2, 3].map((i) => (
+                        <div
+                        key={i}
+                        className={`relative flex flex-col items-center w-6 origin-top ${
+                            i === 0
+                            ? "animate-swing-left"
+                            : i === 3
+                            ? "animate-swing-right"
+                            : ""
+                        }`}
+                        >
+                        {/* String */}
+                        <div className="w-[1px] h-20 bg-emerald-600/20"></div>
+
+                        {/* Ball */}
+                        <div className="relative w-6 h-6 border  bg-emerald-600 rounded-full -mt-0.5 shadow-inner">
+                            <div className="absolute top-1 left-1.5 w-1 h-1 bg-white/10 rounded-full blur-[1px]"></div>
+                        </div>
+                        </div>
+                    ))}
                     </div>
+                </div>
                 </section>
-                <section className="max-w-6xl mx-auto flex items-center justify-between">
+                <section className="max-w-6xl mx-auto flex items-center justify-between bg-emerald-100 p-5">
                     <ul className="flex items-center justify-center gap-3 text-sm">
                         <li>Security</li>
                         <li>Privacy</li>

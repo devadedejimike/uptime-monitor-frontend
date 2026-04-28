@@ -5,23 +5,21 @@ module.exports = {
   "./components/**/*.{js,ts,jsx,tsx}",
   "./lib/**/*.{js,ts}",
 ],
+  darkMode: 'class', 
   theme: {
     extend: {
       colors: {
         brand: {
-          'card': "#ecfdf5",
-          'background': "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#34d399",
-          'primary': "#10b981", // main brand color
-          600: "#059669",
-          700: "#047857",
-          800: "#065f46",
-          900: "#064e3b",
-          'text-muted': "hsla(0, 0%, 45%, 1)"
-        }
-      }
+          background: 'hsla(var(--color-bg), <alpha-value>)',
+          primary: 'hsla(var(--color-primary), <alpha-value>)',
+          border: 'hsla(var(--color-border), <alpha-value>)',
+          // Text specific colors
+          heading: 'hsla(var(--color-text-heading), <alpha-value>)',
+          body: 'hsla(var(--color-text-body), <alpha-value>)',
+          muted: 'hsla(var(--color-text-muted), <alpha-value>)',
+          inv: 'hsla(var(--color-text-inv), <alpha-value>)', // Inverted text for buttons
+        },
+      },
     },
   },
   plugins: [],

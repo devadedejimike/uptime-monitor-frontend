@@ -2,27 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-bg: 150, 20%, 98%;
+    --color-primary: 160, 80%, 35%;
+    --color-border: 160, 15%, 85%;
+
+    /* Text Tones */
+    --color-text-heading: 165, 40%, 12%; /* Near-black green */
+    --color-text-body: 165, 20%, 25%;    /* Clear, readable dark grey-green */
+    --color-text-muted: 165, 10%, 45%;   /* Soft grey for secondary info */
+    --color-text-inv: 0, 0%, 100%;       /* Pure white for button labels */
+  }
+
+  .dark {
+    --color-bg: 210, 25%, 7%;
+    --color-primary: 155, 75%, 50%;
+    --color-border: 210, 20%, 18%;
+
+    /* Dark Mode Text Tones */
+    --color-text-heading: 150, 20%, 98%;
+    --color-text-body: 150, 10%, 85%;
+    --color-text-muted: 150, 5%, 65%;
+    --color-text-inv: 210, 25%, 7%;
+  }
+}
+.draw-line {
+  stroke-dasharray: 500;
+  animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 500;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(16,185,129,0.4); }
+  50% { box-shadow: 0 0 20px rgba(16, 133, 94, 0.4); }
+}
+
+@keyframes swingLeft {
+  0%   { transform: rotate(0deg); animation-timing-function: ease-out; }
+  25%  { transform: rotate(35deg); animation-timing-function: ease-in; } /* Swing Out */
+  50%  { transform: rotate(0deg); } /* Hit middle */
+  100% { transform: rotate(0deg); } /* Wait for right side */
+}
+
+@keyframes swingRight {
+  0%   { transform: rotate(0deg); } /* Wait for left side */
+  50%  { transform: rotate(0deg); animation-timing-function: ease-out; } /* Left hits */
+  75%  { transform: rotate(-35deg); animation-timing-function: ease-in; } /* Swing Out */
+  100% { transform: rotate(0deg); } /* Return to hit */
+}
+
+.animate-swing-left {
+  animation: swingLeft 1.2s infinite;
+}
+
+.animate-swing-right {
+  animation: swingRight 1.2s infinite;
+}

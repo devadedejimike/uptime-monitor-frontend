@@ -8,6 +8,11 @@ export type Baloon = {
     content: string
 }
 
+export type Label ={
+    letter: string,
+    title: string,
+    desc: string
+}
 export const cards: Card[] = [
   {
     id: "deployment",
@@ -47,5 +52,28 @@ export const Baloon = [
     {
         id: "4",
         content: "Reliable Monitoring Every 5 minutes"
+    }
+]
+
+export const label: Label[] = [
+    {
+        letter: "L",
+        title: "Low-noise Alerts",
+        desc: "Get notifiedonly when it matters"
+    },
+    {
+        letter: "I",
+        title: "Instant Awareness ",
+        desc: "Know the moment something happens"
+    },
+    {
+        letter: "F",
+        title: "Fast Monitoring",
+        desc: "Frequent checks to detect issues early"
+    },
+    {
+        letter: "E",
+        title: "Easy Setup",
+        desc: "Start Monitoring in minutes"
     }
 ]
